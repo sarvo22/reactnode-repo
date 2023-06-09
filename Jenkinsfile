@@ -1,34 +1,41 @@
 pipeline {
     agent any
+    environment {
+        docker_img = "nodeimg:$BUILD_NUMBER"
+    }
+    parameters {
+        string description: 'Enter the username', name: 'Username'
+        password defaultValue: '', description: 'Enter the password', name: 'Password'
+    }
     stages {
-        stage("Clone") {
+        stage("Git clone") {
             steps {
                 git branch: "master", url: "https://github.com/sarvo22/reactnode-repo.git"
             }
         }
-        stage("Build"){
+        stage("tf init"){
             steps {
-                sh "/usr/local/bin/docker build -t nodeimg:s1 ."
+                sh "terraform init"
             }
         }
-        stage("LogIn"){
+        stage("tf fmt"){
             steps {
-                sh "/usr/local/bin/docker login --username=sarvo22 --password=Rajasarvo"
+                sh "terraform fmt"
             }
         }
-        stage("Tag"){
+        stage("tf validate"){
             steps {
-                sh "/usr/local/bin/docker tag nodeimg:s1 sarvo22/nodeimg:s1"
+                sh "terraform validate"
             }
         }
-        stage("Push"){
+        stage("tf plan"){
             steps {
-                sh " /usr/local/bin/docker push sarvo22/nodeimg:s1"
+                sh "terraform plan"
             }
         }
-        stage("Run"){
+        stage("tf apply"){
             steps {
-                sh "/usr/local/bin/docker run -itd --name reactnodecont -p 3080:3080 sarvo22/nodeimg:s1"
+                sh "terraform apply"
             }
         }
     }
