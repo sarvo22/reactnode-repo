@@ -16,22 +16,22 @@ pipeline {
         }
         stage("tf fmt"){
             steps {
-                sh "terraform fmt"
+                sh "/opt/homebrew/bin/terraform fmt"
             }
         }
         stage("tf validate"){
             steps {
-                sh "terraform validate"
+                sh "/opt/homebrew/bin/terraform validate"
             }
         }
         stage("tf plan"){
             steps {
-                sh "terraform plan"
+                sh "/opt/homebrew/bin/terraform plan"
             }
         }
         stage("tf apply"){
             steps {
-                sh "terraform apply --auto-approve -var docker_img=${env.docker_img}"
+                sh "/opt/homebrew/bin/terraform apply --auto-approve -var docker_img=${env.docker_img}"
             }
         }
     }
