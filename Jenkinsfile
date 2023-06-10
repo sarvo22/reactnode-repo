@@ -11,7 +11,7 @@ pipeline {
         }
         stage("tf init"){
             steps {
-                sh "/Users/sarvo/Desktop/react-app/ terraform init"
+                sh "/opt/homebrew/bin/terraform init"
             }
         }
         stage("tf fmt"){
