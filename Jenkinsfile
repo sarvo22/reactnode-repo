@@ -26,7 +26,7 @@ pipeline {
         }
         stage("tf plan"){
             steps {
-                sh "/opt/homebrew/bin/terraform plan"
+                sh "/opt/homebrew/bin/terraform plan -var docker_img=${env.docker_img}"
             }
         }
         stage("tf apply"){
