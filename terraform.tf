@@ -25,7 +25,7 @@ variable "docker_img" {
 }
 resource "docker_container" "sar-nodecont1" {
   image = docker_image.node.name
-  name  = "sar-nodecont1-${env.BUILD_NUMBER}"
+  name  = "sar-nodecont-${var.docker_img}"
   ports {
     internal = 3080
     external = 3040
