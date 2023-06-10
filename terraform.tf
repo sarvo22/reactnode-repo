@@ -12,15 +12,23 @@ provider "docker" {
 }
 
 resource "docker_image" "node" {
-  name = "nodeimg:s1"
+  name = var.docker_img
+  build {
+    context = "."
+    dockerfile = "Dockerfile"
+  }
 }
-
-resource "docker_container" "reactnodecont" {
+variable "docker_img" {
+  type        = string
+  description = "name of the docker image to deploy"
+  #default     = "sarnode:$BUILD_NUMBER"
+}
+resource "docker_container" "sar-nodecont1" {
   image = docker_image.node.name
-  name  = "reactnodecont"
-  port {
+  name  = "sar-nodecont-${var.docker_img}"
+  ports {
     internal = 3080
-    external = 3080
+    external = 3040
   }
   restart = "always"
 }
