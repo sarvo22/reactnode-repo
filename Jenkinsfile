@@ -3,10 +3,6 @@ pipeline {
     environment {
         docker_img = "nodeimg:$BUILD_NUMBER"
     }
-    parameters {
-        string description: 'Enter the username', name: 'Username'
-        password defaultValue: '', description: 'Enter the password', name: 'Password'
-    }
     stages {
         stage("Git clone") {
             steps {
@@ -35,7 +31,7 @@ pipeline {
         }
         stage("tf apply"){
             steps {
-                sh "terraform apply"
+                sh "terraform apply --auto-approve -var docker_img=${env.docker_img}"
             }
         }
     }
