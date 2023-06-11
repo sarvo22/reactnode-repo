@@ -12,7 +12,7 @@ provider "docker" {
 }
 
 resource "docker_image" "node" {
-  name = var.docker_img
+  name = "boom:${var.docker_img}"
   build {
     context = "."
     dockerfile = "Dockerfile"
