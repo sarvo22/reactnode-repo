@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        docker_img = "$BUILD_NUMBER"
+        docker_img = "1$BUILD_NUMBER"
     }
     stages {
         stage("Git clone") {
