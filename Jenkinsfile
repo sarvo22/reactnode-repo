@@ -1,8 +1,8 @@
 pipeline {
     agent any
-    //environment {
-        //docker_img = "nodeimg:$BUILD_NUMBER"
-    //}
+    environment {
+        docker_img = "$BUILD_NUMBER"
+    }
     stages {
         stage("Git clone") {
             steps {
@@ -26,12 +26,12 @@ pipeline {
         }
         stage("tf plan"){
             steps {
-                sh "/opt/homebrew/bin/terraform plan -var docker_img=${env.BUILD_NUMBER}"
+                sh "/opt/homebrew/bin/terraform plan -var docker_img=${env.docker_img}"
             }
         }
         stage("tf apply"){
             steps {
-                sh "/opt/homebrew/bin/terraform apply --auto-approve -var docker_img=${env.BUILD_NUMBER}"
+                sh "/opt/homebrew/bin/terraform apply --auto-approve -var docker_img=${env.docker_img}"
             }
         }
     }
