@@ -22,12 +22,12 @@ variable "docker_img" {
   type        = string
   description = "name of the docker image to deploy"
 }
-resource "docker_container" "sar-nodecont1" {
+resource "docker_container" "boom_cont" {
   image = docker_image.node.name
-  name  = "sar-nodecont1-${var.docker_img}"
+  name  = "boom_cont-${var.docker_img}"
   ports {
     internal = 3080
-    external = 3050
+    external = 3060
   }
   restart = "always"
 }
