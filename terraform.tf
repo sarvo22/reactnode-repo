@@ -21,14 +21,13 @@ resource "docker_image" "node" {
 variable "docker_img" {
   type        = string
   description = "name of the docker image to deploy"
-  #default     = "sarnode:$BUILD_NUMBER"
 }
 resource "docker_container" "sar-nodecont1" {
   image = docker_image.node.name
   name  = "sar-nodecont1-${var.docker_img}"
   ports {
     internal = 3080
-    external = 3040
+    external = 3050
   }
   restart = "always"
 }
